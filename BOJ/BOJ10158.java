@@ -19,6 +19,8 @@ public class BOJ10158 {
 		int dc = 1; // x;
 		
 		
+		
+		
 		bw.append(x + " " + y);
 		bw.flush();
 	}
