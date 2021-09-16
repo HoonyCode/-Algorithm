@@ -52,3 +52,33 @@ public class Knapsack {
 	}
 }
 ```
+```java
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Knapsack2 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int N = sc.nextInt();
+		int W = sc.nextInt();
+
+		int[] weights = new int[N + 1];
+		int[] profits = new int[N + 1];
+
+		for (int i = 1; i <= N; i++) {
+			weights[i] = sc.nextInt();
+			profits[i] = sc.nextInt();
+		}
+		int[] dp = new int[W + 1];
+
+		for (int i = 1; i <= N; i++) {
+			for (int w = W; w >= weights[i]; w--) {
+				dp[w] = Math.max(dp[w], dp[w - weights[i]] + profits[i]);
+			}
+			System.out.println(Arrays.toString(dp));
+		}
+
+		System.out.println(dp[W]);
+	}
+}
+```
