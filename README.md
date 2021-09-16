@@ -8,6 +8,9 @@
 ---
 
 ## Knapsack  
+
+![image](https://user-images.githubusercontent.com/44612896/133530191-b6efd8dc-ca34-4119-afbe-d86b7adad4aa.png)
+
 ```java
 import java.util.Scanner;
 
