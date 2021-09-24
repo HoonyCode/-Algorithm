@@ -7,7 +7,7 @@ public class BOJ16432 {
     static int[][] map;
     static int[] v;
     static boolean end = false;
-    static boolean naver = false;
+    static boolean never = false;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -21,17 +21,15 @@ public class BOJ16432 {
                 map[i][j - 1] = Integer.parseInt(input[j]);
             }
         }
-        v = new int[N];
 
         dfs(0);
-
-        if (!end || naver) {
+        if (!end || never) {
             System.out.println(-1);
         }
     }
 
     static void dfs(int cnt) {
-        if (end || naver) return;
+        if (end || never) return;
 
         if (cnt == N) {
             StringBuilder sb = new StringBuilder();
@@ -50,7 +48,7 @@ public class BOJ16432 {
                 v[cnt] = map[cnt][i];
                 dfs(cnt + 1);
                 count++;
-                if (end || naver) return;
+                if (end || never) return;
             }
         } else {
             for (int i = 0; i < map[cnt].length; i++) {
@@ -58,11 +56,11 @@ public class BOJ16432 {
                 v[cnt] = map[cnt][i];
                 dfs(cnt + 1);
                 count++;
-                if (end || naver) return;
+                if (end || never) return;
             }
         }
 
         if(count == map[cnt].length)
-            naver = true;
+            never = true;
     }
 }
