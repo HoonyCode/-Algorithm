@@ -324,7 +324,7 @@ public class DijkstraTest {
 
 ## Knapsack
 
-![image](https://user-images.githubusercontent.com/44612896/133530191-b6efd8dc-ca34-4119-afbe-d86b7adad4aa.png)
+![image width="50%" height="50%"](https://user-images.githubusercontent.com/44612896/133530191-b6efd8dc-ca34-4119-afbe-d86b7adad4aa.png)
 
 <details>
 <summary> Knapsack Code </summary>
@@ -424,23 +424,26 @@ public class Knapsack2 {
 - 알고리즘 공부 방법
   - 기본 개념/문법 이해하기
   - 책
+    - 프로그래밍 대회에서 배우는 알고리즘 문제 해결 전략(종만북)
+    - 프로그래밍 콘테스트 챌린징(노란책)
+    - Competitive Programming 3 by Steven Halim
+    - Introduction to Algorithms(CLRS)
   - 인터넷
-  - [LibreWiki](https://librewiki.net/wiki/%EC%8B%9C%EB%A6%AC%EC%A6%88:%EC%88%98%ED%95%99%EC%9D%B8%EB%93%AF_%EA%B3%BC%ED%95%99%EC%95%84%EB%8B%8C_%EA%B3%B5%ED%95%99%EA%B0%99%EC%9D%80_%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B3%BC%ED%95%99/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98_%EA%B8%B0%EC%B4%88): 이론 한 눈에 정리
-  - [visulgo](https://visualgo.net/ko): 정렬, 트리 등 원리 시각화
-  - [Geeksforgeeks](https://www.geeksforgeeks.org/)
-  - 기본 코드 학습: [Geeks for Geeks 풀이 샘플](https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/)
-
-- 앱
-  - 알고리즘 도감
-  - Geeksforgeeks
+    - [LibreWiki](https://librewiki.net/wiki/%EC%8B%9C%EB%A6%AC%EC%A6%88:%EC%88%98%ED%95%99%EC%9D%B8%EB%93%AF_%EA%B3%BC%ED%95%99%EC%95%84%EB%8B%8C_%EA%B3%B5%ED%95%99%EA%B0%99%EC%9D%80_%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B3%BC%ED%95%99/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98_%EA%B8%B0%EC%B4%88): 이론 한 눈에 정리
+    - [visulgo](https://visualgo.net/ko): 정렬, 트리 등 원리 시각화
+    - [Geeksforgeeks](https://www.geeksforgeeks.org/)
+    - 기본 코드 학습: [Geeks for Geeks 풀이 샘플](https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/)
+    - 앱
+      - 알고리즘 도감
+      - Geeksforgeeks
   - 기본 알고리즘 코드 학습하기
   - 백준에서 아래의 문제를 50문제씩 풀어보기
-  - 그리디 알고리즘 문제
-  - 탐색 문제(완전 탐색, BFS, DFS)
-  - 기본 동적 프로그래밍
+    - 그리디 알고리즘 문제
+    - 탐색 문제(완전 탐색, BFS, DFS)
+    - 기본 동적 프로그래밍
+    - 기출문제
 
-- 기출문제
-  - 고급
+- 고급
   - 그래프이론
   - 중급 및 고급 동적 프로그래밍
   - 문자열
