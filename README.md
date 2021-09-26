@@ -5,6 +5,7 @@
 	- [MST](#mst)
 	- [Kruskal](#kruskal)
 	- [Prim](#prim)
+	- [Dijkstra](#dijkstra)
 	- [Knapsack](#knapsack)
 
 ---
@@ -13,6 +14,8 @@
 `최소 신장 트리`<br>
 신장 트리 : n개의 정점으로 이루어진 무향(방향이 없는) 그래프에서 n개의 정점과 n-1개의 간선으로 이루어진 트리 <br>
 최소 신장 트리 : 무향 가중치 그래프에서 신장 트리를 구성하는 간선들의 가중치의 합이 최소인 신장 트리 <br>
+
+---
 
 ## Kruskal
 간선을 하나씩 선택해서 MST 를 찾는 알고리즘
@@ -119,6 +122,7 @@ public class MSTKruskalTest {
 	3. 모든 정점이 선택될 때 까지 1, 2 과정을 반복
 
 <details>
+<summary> Prim Code </summary>
 <div markdown = "1">
 
 ```java
@@ -181,7 +185,98 @@ public class PrimTest {
 </div>
 </details>
 
+---
 
+## Dijkstra
+- 최단 경로 정의
+  - 간선의 가중치가 있는 그래프에서 두 정점 사이의 경로들 중에 간선의 가중치의 합이 최소인 경로
+
+`다이스트라 알고리즘`
+- 하나의 시작 정점에서 끝 정점까지의 최단 경로
+- 음의 가중치를 허용하지 않음
+
+방법
+- 시작 정점에서의 거리가 최소인 정점을 선택해 나가면서 최단 경로를 구하는 방식이다.
+- 탐욕 기법을 사용한 알고리즘으로 MST의 프림 알고리즘과 유사하다.
+
+<details>
+<summary> Dijkstra Code </summary>
+<div markdown = "1">
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class DijkstraTest {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine().trim());
+		int V = Integer.parseInt(st.nextToken()); //정점 갯수
+		int start = 0;
+		int end =  V-1; //도착점 인덱스
+		final int INFINITY = Integer.MAX_VALUE;
+		
+		int[][] matrix = new int[V][V]; // 연결된 간선 받기
+		int[] D = new int[V];
+		boolean[] v = new boolean[V]; // 탐색체크 배열
+		
+		for(int i=0; i<V; ++i){
+			st = new StringTokenizer(in.readLine().trim(), " ");
+			for(int j=0; j<V; ++j){
+				matrix[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		Arrays.fill(D, INFINITY);
+		D[start] = 0; //시작점
+		
+		int min=0, current=0;
+		for(int i=0; i<V; ++i){
+			//a단계 : 방문하지 않은 정점들 중 최소가중치의 정점 선택
+			min = INFINITY;
+			for(int j=0; j<V; ++j){
+				if(v[j]) {
+					continue;
+				}
+				if(D[j] < min){
+					min = D[j];
+					current = j;
+				}
+			}
+			v[current] = true; // 선택 정점 방문 처리
+			if(current == end){ // 선택 정점이 도착정점이면 탈출.
+				break;
+			}
+			
+			//b단계: current정점을 경유지로 하여 갈수 있는 다른 방문하지 않은 정점들에 대한 처리
+			for(int c=0; c<V; ++c){
+				if(v[c]) {
+					continue;
+				}
+				if(matrix[current][c] == 0) {
+					continue;
+				}
+				if(D[c] > min+matrix[current][c]){
+					D[c] = min+matrix[current][c];
+				}
+			}
+		}
+		System.out.println(D[end]);
+	}
+
+}
+```
+
+
+</div>
+</dtails>
+
+---
 
 ## Knapsack  
 
@@ -265,3 +360,5 @@ public class Knapsack2 {
 
 </div>
 </details>
+
+---
