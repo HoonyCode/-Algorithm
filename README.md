@@ -1,10 +1,10 @@
 # 알고리즘 정리
 
 > 목차  
-
 - [알고리즘 정리](#알고리즘-정리)
 	- [MST](#mst)
 	- [Kruskal](#kruskal)
+	- [Prim](#prim)
 	- [Knapsack](#knapsack)
 
 ---
@@ -109,7 +109,75 @@ public class MSTKruskalTest {
 
 }
 ```
+</div>
+</details>
 
+## Prim
+- 하나의 정점에서 연결된 간선들 중에 하나씩 선택하면서 `MST`를 만들어 가는 방식
+	1. 임의 정점을 하나 선택해서 시작
+	2. 선택한 정점과 인접하는 정점들 중의 최소 비용의 간선이 존재하는 정점을 선택
+	3. 모든 정점이 선택될 때 까지 1, 2 과정을 반복
+
+<details>
+<div markdown = "1">
+
+```java
+import java.util.Scanner;
+
+public class PrimTest {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(); // V 개수
+        int[][] input = new int[N][N];
+        boolean[] v = new boolean[N]; // 탐색 체크 배열
+        int[] minEdge = new int[N];
+        
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                input[i][j] = sc.nextInt();
+            }
+            minEdge[i] = Integer.MAX_VALUE; //시작점 초기화
+        }// i노드에서 j노드까지의 비용을 모두 배열에 저장
+        
+        int res = 0;
+        minEdge[0] = 0; // 임의의 시작점인 0을 최소 비용으로 선택되기 위해서 최소값 설정
+        
+        for(int i = 0; i < N; i++) { //모든 정점이 MST에 포함될때까지 반복
+//            1. MST에 포함되지 않은 정점 중에서 최소간선비용의 정점 찾기
+            int min = Integer.MAX_VALUE;
+            int minVertex = -1; // 최소 간선 비용의 정점 번호
+            for(int j = 0; j < N; j++) {
+                if(v[j]) { // MST에 포함된것은 무시
+                    continue;
+                }
+                if(min > minEdge[j]) { // 최소값의 위치를 찾으면, 최소값과 위치 저장
+                    min = minEdge[j];
+                    minVertex = j;
+                     
+                }
+            }
+            v[minVertex] = true; // 신장트리에 포함시킴으로
+            res += min; // MST 비용에 추가하기
+            
+//            2. 선택된 정점 기준으로 MST에 연결되지 않는 타 정점과의  최소비용 수정
+            for(int j = 0; j < N; j++) {
+                if(v[j]) {
+                    continue; // 포함된 정점 무시
+                }
+                if(input[minVertex][j] == 0) { // 연결 안되면 무시
+                    continue;
+                }
+                if(minEdge[j] > input[minVertex][j]) { // 새로운 연결이 유리하면 minEdge 배열값 업데이트
+                    minEdge[j] = input[minVertex][j];
+                }
+            }
+        }
+        System.out.println(res);
+    }
+
+}
+```
 </div>
 </details>
 
