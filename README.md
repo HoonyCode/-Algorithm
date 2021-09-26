@@ -271,10 +271,8 @@ public class DijkstraTest {
 
 }
 ```
-
-
 </div>
-</dtails>
+</details>
 
 ---
 
