@@ -433,7 +433,7 @@ public class Knapsack2 {
     - [visulgo](https://visualgo.net/ko): 정렬, 트리 등 원리 시각화
     - [Geeksforgeeks](https://www.geeksforgeeks.org/)
     - 기본 코드 학습: [Geeks for Geeks 풀이 샘플](https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/)
-    - 앱
+  - 앱
       - 알고리즘 도감
       - Geeksforgeeks
   - 기본 알고리즘 코드 학습하기
