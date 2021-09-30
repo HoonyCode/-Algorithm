@@ -59,19 +59,15 @@ public class BOJ1194 {
                 if (map[drow][dcol] == '#') continue;
                 if ((v[drow][dcol] | cur.flag) == v[drow][dcol]) continue; //방문 한 곳이면
 
-
                 if (map[drow][dcol] == '1') { // 종료 조건
                     res = cur.cnt + 1;
                     return;
                 }
 
                 if (map[drow][dcol] == '.') { //땅일 떄
-
                     que.offer(new Pair(drow, dcol, cur.flag, cur.cnt + 1));
                     v[drow][dcol] = cur.flag;
-
                 } else if (map[drow][dcol] >= 'a' && map[drow][dcol] <= 'f') { //열쇠
-
                     int flag = 1 << (map[drow][dcol] - 'a');
                     if ((cur.flag & flag) == 0){
                         flag += cur.flag;
@@ -81,10 +77,7 @@ public class BOJ1194 {
                        que.offer(new Pair(drow, dcol, cur.flag, cur.cnt + 1));
                         v[drow][dcol] = cur.flag;
                     }
-
-
                 } else {//열쇠
-
                     int checkFlag = 1 << (map[drow][dcol] - 'A');
                     if ((cur.flag & checkFlag) > 0) { //키를 가지고 있음
                         que.offer(new Pair(drow, dcol, cur.flag, cur.cnt + 1));

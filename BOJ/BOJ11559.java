@@ -6,7 +6,7 @@ import java.util.*;
 public class BOJ11559 {
 
     static char[][] map = new char[12][6];
-    static HashSet<Integer> hashSet = new HashSet<>(); //부서진 col의 값을 가지고 있음
+    static HashSet<Integer> hashSet = new HashSet<>(); //부서진 열의 값을 가지고 있음
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,13 +17,13 @@ public class BOJ11559 {
 
         int res = 0;
         while (true){
-            BlockBreak();
-            if (hashSet.size() == 0)
+            BlockBreak(); // 벽 부스기
+            if (hashSet.size() == 0) // 벽 부서지 열이 없다면 종료
                 break;
 
-            blockDown();
+            blockDown(); // 벽 내리기
             hashSet.clear();
-            res++;
+            res++; // 카운트 증가
         }
 
         System.out.println(res);
@@ -41,17 +41,17 @@ public class BOJ11559 {
         }
     }
 
-    static void blockDown(){
+    static void blockDown(){ //벽 내리기
         for (int col : hashSet){
             String input = "";
             for (int i = 11 ; i > -1 ; i--){
-                if (map[i][col] != '.') {
+                if (map[i][col] != '.') { //부서진 열에서 문자가 있으면 input에 넣어고 '.'로 만듬
                     input += map[i][col];
                     map[i][col] = '.';
                 }
             }
             if (input.length() == 0) continue;
-            for (int i = 0; i < input.length(); i++){
+            for (int i = 0; i < input.length(); i++){ //밑에서부터 문자를 채워줌
                 map[11-i][col] = input.charAt(i);
             }
         }
@@ -83,25 +83,14 @@ public class BOJ11559 {
             }
         }
 
-        if (list.size() < 4) {
+        if (list.size() < 4) { //인접한 벽 개수가 4개가 아닐 때 종료
             return;
         }
 
-        for (int[] temp : list) {
+        for (int[] temp : list) { // 인접한 벽 개수가 4개 이상일 때 벽을 부시기.
             map[temp[0]][temp[1]] = '.';
             hashSet.add(temp[1]);
         }
         return;
-    }
-
-    static void PrintMap() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < 6; j++) {
-                sb.append(map[i][j]);
-            }
-            sb.append("\n");
-        }
-        System.out.println(sb.toString());
     }
 }
