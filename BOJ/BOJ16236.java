@@ -1,108 +1,123 @@
-import org.omg.CORBA.MARSHAL;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BOJ16236 {
+	static int N;
+	static int[][] map, submap;
+	static int[] dr = { -1, 0, 0, 1 };
+	static int[] dc = { 0, -1, 1, 0 };
+	static Pair shork;
+	static int big = 2;
+	static int eat = 0; // 같은 수의 물고기를 먹을 때 마다 크기가 1증가
+	static int time = 0;
 
-    static int N;
-    static int[][] map;
-    static int sharkSize = 2;
-    static int eatCnt = 0;
-    static Pair shark;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		map = new int[N][N];
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        map = new int[N][N];
-        for (int i = 0; i < N; i++) {
-            String[] input = br.readLine().split(" ");
-            for (int j = 0; j < N; j++) {
-                map[i][j] = Integer.parseInt(input[j]);
-                if (map[i][j] == 9) {
-                    shark = new Pair(i, j, 0);
-                    map[i][j] = 0;
-                }
-            }
-        }
+		// 9 아기 상어
+		// 처음 아기 상어 크기 2
+		// 1초 상하좌우
+		// 작은 물고기 먹을 수 x 크기 같으면 먹 가능
+		// 가장 위 왼쪽
+		for (int i = 0; i < N; i++) {
+			String[] input = br.readLine().split(" ");
+			for (int j = 0; j < N; j++) {
+				map[i][j] = Integer.parseInt(input[j]);
+				if (map[i][j] == 9) {
+					shork = new Pair(i, j);
+				}
+			}
+		}
 
-        while (bfs());
-        System.out.println(shark.time);
-    }
+		while (bfs())
+			Print();
 
-    static int[] dr = {-1, 0, 1, 0};
-    static int[] dc = {0, -1, 0, 1};
+		System.out.println(time);
 
-    static boolean bfs() {
-        Queue<Pair> que = new LinkedList<>();
-        boolean[][] v = new boolean[N][N];
-        v[shark.row][shark.col] = true;
-        que.offer(shark);
+	}
 
-        Pair cur = null;
-        int drow;
-        int dcol;
-        int minTime = Integer.MAX_VALUE;
-        ArrayList<Pair> list = new ArrayList<>();
-        while (!que.isEmpty()) {
-            cur = que.poll();
+	static boolean bfs() {
+		mapcopy();
 
-            if (minTime < cur.time)
-                break;
+		Queue<Pair> que = new LinkedList<>();
+		que.offer(shork);
+		submap[shork.row][shork.col] = 10;
+		map[shork.row][shork.col] = 0;
+		
+		
+		while (que.size() != 0) {
 
-            if (map[cur.row][cur.col] > 0 && map[cur.row][cur.col] < sharkSize) {
-                list.add(new Pair(cur.row, cur.col, cur.time));
-                minTime = cur.time;
-            }
+			Pair temp = que.poll();
 
-            for (int d = 0; d < 4; d++) {
-                drow = dr[d] + cur.row;
-                dcol = dc[d] + cur.col;
-                if (drow < 0 || drow >= N || dcol < 0 || dcol >= N || map[drow][dcol] > sharkSize || v[drow][dcol])
-                    continue;
-                v[drow][dcol] = true;
-                que.offer(new Pair(drow, dcol, cur.time + 1));
-            }
-        }
+			for (int d = 0; d < 4; d++) {
+				int drow = temp.row + dr[d];
+				int dcol = temp.col + dc[d];
 
-        //상어 찾기
-        if (list.isEmpty())
-            return false;
-        Collections.sort(list);
-        shark = list.get(0);
-        map[shark.row][shark.col] = 0;
-        Eat();
-        return true;
-    }
+				if (drow < 0 || drow >= N || dcol < 0 || dcol >= N || submap[drow][dcol] > big)
+					continue;
 
+				if (submap[drow][dcol] < big && submap[drow][dcol] > 0) {
+					shork.row = drow;
+					shork.col = dcol;
+					time = time + temp.cnt + 1;
+					eat++;
+					if (big == eat) {
+						big++;
+						eat = 0;
+					}
+					map[drow][dcol] = 9;
+					return true;
+				}
 
-    static class Pair implements Comparable<Pair> {
-        int row;
-        int col;
-        int time;
+				submap[drow][dcol] = 10;
+				que.offer(new Pair(drow, dcol, temp.cnt + 1));
+			}
 
-        public Pair(int row, int col, int time) {
-            this.row = row;
-            this.col = col;
-            this.time = time;
-        }
+		}
 
-        @Override
-        public int compareTo(Pair o) {
-            if (this.row == o.row)
-                return this.col - o.col;
-            return this.row - o.row;
-        }
-    }
+		return false;
+	}
 
-    static void Eat() {
-        eatCnt++;
-        if (eatCnt == sharkSize) {
-            eatCnt = 0;
-            sharkSize++;
-        }
-    }
+	static void mapcopy() {
+		submap = new int[N][N];
 
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				submap[i][j] = map[i][j];
+			}
+		}
+	}
+
+	static class Pair {
+		int row;
+		int col;
+		int cnt = 0;
+
+		public Pair(int row, int col) {
+			this.row = row;
+			this.col = col;
+			this.cnt = 0;
+		}
+
+		public Pair(int row, int col, int cnt) {
+			this.row = row;
+			this.col = col;
+			this.cnt = cnt;
+		}
+	}
+	
+	static void Print() {
+		for(int i = 0; i < N ; i++) {
+			for(int j = 0 ; j < N ; j++) {
+				System.out.print(map[i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println(eat + " " + big + " " + time);
+	}
 }

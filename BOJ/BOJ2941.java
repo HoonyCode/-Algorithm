@@ -1,4 +1,4 @@
-package algo;
+
 import java.util.*;;
 public class BOJ2941 {
 	public static void main(String[] args){
