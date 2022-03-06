@@ -11,7 +11,7 @@ public class PRO_기능개발_HoonyCode {
 
             int start = 0;
             int end = progresses.length;
-
+            
             while (start != end) {
                 for (int i = start; i < end; i++) {
                     progresses[i] += speeds[i];
