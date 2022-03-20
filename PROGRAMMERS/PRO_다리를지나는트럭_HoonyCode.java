@@ -32,7 +32,7 @@ public class PRO_다리를지나는트럭_HoonyCode {
                         idx++;
                     }
                     continue;
-                }ppp
+                }
 
                 // 크지 않을때
                 answer++;
